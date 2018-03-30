@@ -32,6 +32,10 @@ public class App {
             }
         }
 
+        TraceMerger.merge(members);
+
+        Sorter.sort(members);
+
         Writer.write(members);
     }
 }

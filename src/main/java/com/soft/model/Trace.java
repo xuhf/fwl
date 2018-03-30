@@ -1,11 +1,13 @@
 package com.soft.model;
 
-import com.soft.enums.TraceTypeEnum;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Created by xuhf on 2018/3/28.
  */
-public class Trace {
+public class Trace implements Comparable<Trace> {
 
     private String mobile;
 
@@ -118,5 +120,34 @@ public class Trace {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "Trace{" +
+                "mobile='" + mobile + '\'' +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", addr='" + addr + '\'' +
+                ", firstTime='" + firstTime + '\'' +
+                ", lastTime='" + lastTime + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", normalAddress='" + normalAddress + '\'' +
+                ", valid=" + valid +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
+
+    public int compareTo(Trace o) {
+        String lastTime = this.getLastTime();
+        String lastTime2 = o.getLastTime();
+        DateTimeFormatter f = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        DateTime dateTime = DateTime.parse(lastTime, f);
+        DateTime dateTime2 = DateTime.parse(lastTime2, f);
+        if (dateTime.isBefore(dateTime2)) {
+            return 1;
+        }
+        return 0;
     }
 }
